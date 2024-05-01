@@ -10,7 +10,13 @@ fn main() {
             .read_line(&mut guess)
             .expect("something went wrong");
 
-        let guess: i32 = guess.trim().parse().expect("not valid number");
+        let guess: i32 = match guess.trim().parse() {
+            Ok(num) => num,
+            Err(_) => {
+                println!("Please type a number!");
+                continue;
+            }
+        };
 
         match guess.cmp(&winning_guess) {
             Ordering::Less => println!("too small"),
